@@ -17,7 +17,11 @@ importers:
 
   packages/kasten: {}
 
-  packages/kasten-cli: {}
+  packages/kasten-cli:
+    dependencies:
+      kasten:
+        specifier: workspace:*
+        version: link:../kasten
 
 packages:
 
