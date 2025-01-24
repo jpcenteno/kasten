@@ -6,7 +6,7 @@
   - [x] Flake skeleton.
   - [x] JS runtime (node, pnpm)
   - [ ] Testing (Jest)
-  - [ ] Linting (Eslint)
+  - [x] Linting (Eslint)
   - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
   - [x] Gitignore.
