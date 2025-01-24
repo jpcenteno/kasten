@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Bootstrap the development environment
+- [x] Bootstrap the development environment
   - [x] Flake skeleton.
   - [x] JS runtime (node, pnpm)
   - [x] Testing (Jest)
