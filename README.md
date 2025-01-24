@@ -7,7 +7,7 @@
   - [x] JS runtime (node, pnpm)
   - [ ] Testing (Jest)
   - [ ] Linting (Eslint)
-  - [ ] Formatting (Prettier)
+  - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
   - [ ] Gitignore.
 - [ ] Make the CLI skeleton

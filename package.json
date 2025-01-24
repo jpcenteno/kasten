@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "cli": "pnpm run --filter kasten-cli cli"
+    "check:format": "prettier . --check",
+    "cli": "pnpm run --filter kasten-cli cli",
+    "fix:format": "prettier . --write"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.10.10",
+    "prettier": "3.4.2",
     "typescript": "^5.7.3"
   }
 }
