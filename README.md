@@ -4,7 +4,7 @@
 
 - [ ] Bootstrap the development environment
   - [x] Flake skeleton.
-  - [ ] JS runtime (node, pnpm)
+  - [x] JS runtime (node, pnpm)
   - [ ] Testing (Jest)
   - [ ] Linting (Eslint)
   - [ ] Formatting (Prettier)
