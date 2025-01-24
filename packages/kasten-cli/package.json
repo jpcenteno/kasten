@@ -10,5 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "kasten": "workspace:*"
-  }
+  },
+  "type": "module"
 }
