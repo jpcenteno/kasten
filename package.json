@@ -2,7 +2,9 @@
   "name": "kasten",
   "version": "1.0.0",
   "description": "",
-  "scripts": {},
+  "scripts": {
+    "cli": "pnpm run --filter kasten-cli cli"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

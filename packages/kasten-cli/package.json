@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "cli": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
