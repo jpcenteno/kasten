@@ -3,7 +3,7 @@
 ## TODO
 
 - [ ] Bootstrap the development environment
-  - [ ] Flake
+  - [x] Flake skeleton.
   - [ ] JS runtime (node, pnpm)
   - [ ] Testing (Jest)
   - [ ] Linting (Eslint)
