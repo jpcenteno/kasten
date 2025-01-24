@@ -10,8 +10,8 @@
   - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
   - [x] Gitignore.
+  - [ ] Package the CLI (Nix Flakes).
 - [ ] Make the CLI skeleton
-  - [ ] Package using flake.
 - [ ] Define the storage layers.
 - [ ] Define the main entities.
 - [ ] Feat: Create a Zettel.
