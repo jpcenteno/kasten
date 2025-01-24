@@ -8,7 +8,7 @@
   - [ ] Testing (Jest)
   - [ ] Linting (Eslint)
   - [ ] Formatting (Prettier)
-  - [ ] Typescript compiler (TSC)
+  - [x] Typescript compiler (TSC)
   - [ ] Gitignore.
 - [ ] Make the CLI skeleton
   - [ ] Package using flake.
