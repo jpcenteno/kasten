@@ -2,6 +2,28 @@
 
 ## TODO
 
+- [ ] Define the main entities.
+  - [ ] Zettelkasten
+  - [ ] Zettel
+    - [ ] Note
+    - [ ] Reference
+    - [ ] Attachment
+- [ ] Make the CLI skeleton
+  - [ ] Note
+    - [ ] new
+    - [ ] titles
+  - [ ] Reference
+    - New
+    - View
+    - Search
+    - List
+  - [ ] Attachments
+- [ ] Define the storage layers.
+- [ ] Feat: Create a Zettel.
+- [ ] Feat list zettels by title.
+- [ ] Feat: Extract links from a zettel.
+- [ ] Feat: Get a zettel in context (with it's backlinks)
+- [ ] Feat: Templates
 - [x] Bootstrap the development environment
   - [x] Flake skeleton.
   - [x] JS runtime (node, pnpm)
@@ -10,11 +32,4 @@
   - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
   - [x] Gitignore.
-  - [ ] Package the CLI (Nix Flakes).
-- [ ] Make the CLI skeleton
-- [ ] Define the storage layers.
-- [ ] Define the main entities.
-- [ ] Feat: Create a Zettel.
-- [ ] Feat list zettels by title.
-- [ ] Feat: Extract links from a zettel.
-- [ ] Feat: Get a zettel in context (with it's backlinks)
+  - [x] Package the CLI (Nix Flakes).
