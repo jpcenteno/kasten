@@ -5,7 +5,7 @@
 - [ ] Bootstrap the development environment
   - [x] Flake skeleton.
   - [x] JS runtime (node, pnpm)
-  - [ ] Testing (Jest)
+  - [x] Testing (Jest)
   - [x] Linting (Eslint)
   - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
