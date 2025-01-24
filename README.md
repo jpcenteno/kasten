@@ -9,7 +9,7 @@
   - [ ] Linting (Eslint)
   - [x] Formatting (Prettier)
   - [x] Typescript compiler (TSC)
-  - [ ] Gitignore.
+  - [x] Gitignore.
 - [ ] Make the CLI skeleton
   - [ ] Package using flake.
 - [ ] Define the storage layers.
