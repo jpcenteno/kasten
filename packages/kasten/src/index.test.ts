@@ -19,8 +19,7 @@ describe("Zettelkasten", () => {
     const filename = zk.newNote(params);
 
     // Assert:
-    const notePath = path.join(dir, filename);
-    expect(fs.existsSync(notePath)).toBeTruthy();
+    expect(fileExistsInDirSync(filename)).toBeTruthy();
   });
 
   it("Creates a two files at the directory", () => {
@@ -30,8 +29,8 @@ describe("Zettelkasten", () => {
 
     // Assert:
     expect(filename1).not.toEqual(filename2);
-    expect(fs.existsSync(path.join(dir, filename1))).toBeTruthy();
-    expect(fs.existsSync(path.join(dir, filename2))).toBeTruthy();
+    expect(fileExistsInDirSync(filename1)).toBeTruthy();
+    expect(fileExistsInDirSync(filename2)).toBeTruthy();
     expect(fs.readdirSync(dir)).toHaveLength(2);
   });
 
@@ -42,7 +41,7 @@ describe("Zettelkasten", () => {
     const filename = zk.newNote(params);
 
     // Assert:
-    const rawContents = fs.readFileSync(path.join(dir, filename), "utf-8");
+    const rawContents = readRawFileSync(filename);
     expect(rawContents).toContain(params.title);
   });
 
@@ -53,9 +52,17 @@ describe("Zettelkasten", () => {
     const filename = zk.newNote(params);
 
     // Assert:
-    const rawContents = fs.readFileSync(path.join(dir, filename), "utf-8");
+    const rawContents = readRawFileSync(filename);
     expect(rawContents).toContain(params.content);
   });
+
+  function readRawFileSync(filename: string): string {
+    return fs.readFileSync(path.join(dir, filename), "utf-8");
+  }
+
+  function fileExistsInDirSync(filename: string): boolean {
+    return fs.existsSync(path.join(dir, filename));
+  }
 });
 
 function tmpDir(): string {
