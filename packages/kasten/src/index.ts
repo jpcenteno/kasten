@@ -12,7 +12,7 @@ export class Zettelkasten {
   newNote({ title, content }: { title: string; content: string }): string {
     const filename = randomID() + ".mdx";
     const fullpath = path.join(this.directory, filename);
-    writeFileSync(fullpath, "");
+    writeFileSync(fullpath, `${title}\n${content}`);
     return filename;
   }
 }
