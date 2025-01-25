@@ -15,4 +15,8 @@ export class Zettelkasten {
     writeFileSync(fullpath, `${title}\n${content}`);
     return filename;
   }
+
+  getFullPath(id: string): string {
+    return path.resolve(this.directory, id);
+  }
 }
