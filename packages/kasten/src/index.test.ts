@@ -14,46 +14,50 @@ describe("Zettelkasten", () => {
     zk = new Zettelkasten(dir);
   });
 
-  it("Creates a new file at the directory", () => {
-    // Act:
-    const filename = zk.newNote(params);
+  describe("newNote", () => {
+    it("Creates a new file at the directory", () => {
+      // Act:
+      const filename = zk.newNote(params);
 
-    // Assert:
-    expect(fileExistsInDirSync(filename)).toBeTruthy();
+      // Assert:
+      expect(fileExistsInDirSync(filename)).toBeTruthy();
+    });
+
+    it("Creates a two files at the directory", () => {
+      // Act:
+      const filename1 = zk.newNote(params);
+      const filename2 = zk.newNote(params);
+
+      // Assert:
+      expect(filename1).not.toEqual(filename2);
+      expect(fileExistsInDirSync(filename1)).toBeTruthy();
+      expect(fileExistsInDirSync(filename2)).toBeTruthy();
+      expect(fs.readdirSync(dir)).toHaveLength(2);
+    });
+
+    // TODO Refactor the test using an actual note parser once we have the
+    // implementation.
+    it("Includes the title on the new file", () => {
+      // Act:
+      const filename = zk.newNote(params);
+
+      // Assert:
+      const rawContents = readRawFileSync(filename);
+      expect(rawContents).toContain(params.title);
+    });
+
+    // TODO Refactor the test using an actual note parser once we have the
+    // implementation.
+    it("Includes the content on the new file", () => {
+      // Act:
+      const filename = zk.newNote(params);
+
+      // Assert:
+      const rawContents = readRawFileSync(filename);
+      expect(rawContents).toContain(params.content);
+    });
   });
 
-  it("Creates a two files at the directory", () => {
-    // Act:
-    const filename1 = zk.newNote(params);
-    const filename2 = zk.newNote(params);
-
-    // Assert:
-    expect(filename1).not.toEqual(filename2);
-    expect(fileExistsInDirSync(filename1)).toBeTruthy();
-    expect(fileExistsInDirSync(filename2)).toBeTruthy();
-    expect(fs.readdirSync(dir)).toHaveLength(2);
-  });
-
-  // TODO Refactor the test using an actual note parser once we have the
-  // implementation.
-  it("Includes the title on the new file", () => {
-    // Act:
-    const filename = zk.newNote(params);
-
-    // Assert:
-    const rawContents = readRawFileSync(filename);
-    expect(rawContents).toContain(params.title);
-  });
-
-  // TODO Refactor the test using an actual note parser once we have the
-  // implementation.
-  it("Includes the content on the new file", () => {
-    // Act:
-    const filename = zk.newNote(params);
-
-    // Assert:
-    const rawContents = readRawFileSync(filename);
-    expect(rawContents).toContain(params.content);
   });
 
   function readRawFileSync(filename: string): string {
