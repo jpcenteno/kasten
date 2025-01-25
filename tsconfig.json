@@ -12,7 +12,8 @@
       "*": ["node_modules/*", "packages/*"]
     },
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "resolveJsonModule": true
   },
   "include": ["packages/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
