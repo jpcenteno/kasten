@@ -3,6 +3,8 @@ import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 
+const params = { title: "Some title", content: "Some content" };
+
 describe("Zettelkasten", () => {
   let dir: string;
   let zk: Zettelkasten;
@@ -13,9 +15,6 @@ describe("Zettelkasten", () => {
   });
 
   it("Creates a new file at the directory", () => {
-    // Arrange:
-    const params = { title: "Some title", content: "Some content" };
-
     // Act:
     const filename = zk.newNote(params);
 
@@ -25,13 +24,9 @@ describe("Zettelkasten", () => {
   });
 
   it("Creates a two files at the directory", () => {
-    // Arrange:
-    const params1 = { title: "Some title 1", content: "Some content" };
-    const params2 = { title: "Some title 2", content: "Some content" };
-
     // Act:
-    const filename1 = zk.newNote(params1);
-    const filename2 = zk.newNote(params2);
+    const filename1 = zk.newNote(params);
+    const filename2 = zk.newNote(params);
 
     // Assert:
     expect(filename1).not.toEqual(filename2);
@@ -43,9 +38,6 @@ describe("Zettelkasten", () => {
   // TODO Refactor the test using an actual note parser once we have the
   // implementation.
   it("Includes the title on the new file", () => {
-    // Arrange:
-    const params = { title: "Some title", content: "Some content" };
-
     // Act:
     const filename = zk.newNote(params);
 
@@ -57,9 +49,6 @@ describe("Zettelkasten", () => {
   // TODO Refactor the test using an actual note parser once we have the
   // implementation.
   it("Includes the content on the new file", () => {
-    // Arrange:
-    const params = { title: "Some title", content: "Some content" };
-
     // Act:
     const filename = zk.newNote(params);
 
