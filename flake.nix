@@ -15,6 +15,8 @@
           buildInputs = [
             nodejs
             pnpm
+
+            pkgs.typescript-language-server
           ];
         };
 
