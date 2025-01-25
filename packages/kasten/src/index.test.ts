@@ -4,10 +4,16 @@ import * as path from "path";
 import * as os from "os";
 
 describe("Zettelkasten", () => {
+  let dir: string;
+  let zk: Zettelkasten;
+
+  beforeEach(() => {
+    dir = tmpDir();
+    zk = new Zettelkasten(dir);
+  });
+
   it("Creates a new file at the directory", () => {
     // Arrange:
-    const dir = tmpDir();
-    const zk = new Zettelkasten(dir);
     const params = { title: "Some title", content: "Some content" };
 
     // Act:
@@ -20,8 +26,6 @@ describe("Zettelkasten", () => {
 
   it("Creates a two files at the directory", () => {
     // Arrange:
-    const dir = tmpDir();
-    const zk = new Zettelkasten(dir);
     const params1 = { title: "Some title 1", content: "Some content" };
     const params2 = { title: "Some title 2", content: "Some content" };
 
@@ -40,8 +44,6 @@ describe("Zettelkasten", () => {
   // implementation.
   it("Includes the title on the new file", () => {
     // Arrange:
-    const dir = tmpDir();
-    const zk = new Zettelkasten(dir);
     const params = { title: "Some title", content: "Some content" };
 
     // Act:
@@ -56,8 +58,6 @@ describe("Zettelkasten", () => {
   // implementation.
   it("Includes the content on the new file", () => {
     // Arrange:
-    const dir = tmpDir();
-    const zk = new Zettelkasten(dir);
     const params = { title: "Some title", content: "Some content" };
 
     // Act:
