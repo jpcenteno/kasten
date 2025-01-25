@@ -35,6 +35,38 @@ describe("Zettelkasten", () => {
     expect(fs.existsSync(path.join(dir, filename2))).toBeTruthy();
     expect(fs.readdirSync(dir)).toHaveLength(2);
   });
+
+  // TODO Refactor the test using an actual note parser once we have the
+  // implementation.
+  it("Includes the title on the new file", () => {
+    // Arrange:
+    const dir = tmpDir();
+    const zk = new Zettelkasten(dir);
+    const params = { title: "Some title", content: "Some content" };
+
+    // Act:
+    const filename = zk.newNote(params);
+
+    // Assert:
+    const rawContents = fs.readFileSync(path.join(dir, filename), "utf-8");
+    expect(rawContents).toContain(params.title);
+  });
+
+  // TODO Refactor the test using an actual note parser once we have the
+  // implementation.
+  it("Includes the content on the new file", () => {
+    // Arrange:
+    const dir = tmpDir();
+    const zk = new Zettelkasten(dir);
+    const params = { title: "Some title", content: "Some content" };
+
+    // Act:
+    const filename = zk.newNote(params);
+
+    // Assert:
+    const rawContents = fs.readFileSync(path.join(dir, filename), "utf-8");
+    expect(rawContents).toContain(params.content);
+  });
 });
 
 function tmpDir(): string {
