@@ -2,6 +2,7 @@ import { Zettelkasten } from "./index";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
+import { randomID } from "./entities/id";
 
 const params = { title: "Some title", content: "Some content" };
 
@@ -58,6 +59,12 @@ describe("Zettelkasten", () => {
     });
   });
 
+  describe("getFullPath", () => {
+    it("Returns the full given a Zettel ID", () => {
+      const fileName = randomID() + ".mdx";
+      const result = zk.getFullPath(fileName);
+      expect(result).toStrictEqual(dir + "/" + fileName);
+    });
   });
 
   function readRawFileSync(filename: string): string {
