@@ -15,7 +15,7 @@ describe("Zettelkasten", () => {
 
     // Assert:
     const notePath = path.join(dir, filename);
-    expect(fs.existsSync(notePath)).toBe(true);
+    expect(fs.existsSync(notePath)).toBeTruthy();
   });
 
   it("Creates a two files at the directory", () => {
@@ -31,8 +31,8 @@ describe("Zettelkasten", () => {
 
     // Assert:
     expect(filename1).not.toEqual(filename2);
-    expect(fs.existsSync(path.join(dir, filename1))).toBe(true);
-    expect(fs.existsSync(path.join(dir, filename2))).toBe(true);
+    expect(fs.existsSync(path.join(dir, filename1))).toBeTruthy();
+    expect(fs.existsSync(path.join(dir, filename2))).toBeTruthy();
     expect(fs.readdirSync(dir)).toHaveLength(2);
   });
 });
