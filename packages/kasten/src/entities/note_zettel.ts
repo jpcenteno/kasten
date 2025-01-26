@@ -1,9 +1,9 @@
 import matter from "gray-matter";
 import { z } from "zod";
 
-const Frontmatter = z
+const FrontmatterSchema = z
   .object({
-    title: z.string(),
+    title: z.string().trim().min(1, "Must be non-blank"),
   })
   .required();
 
@@ -18,7 +18,7 @@ export class NoteZettel {
 
   static fromMarkdown(input: string): NoteZettel {
     const { content, data } = matter(input);
-    const { title } = Frontmatter.parse(data);
+    const { title } = FrontmatterSchema.parse(data);
     return new NoteZettel({ content, title });
   }
 }

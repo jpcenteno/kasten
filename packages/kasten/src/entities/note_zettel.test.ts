@@ -19,5 +19,13 @@ describe("NoteZettel", () => {
         console.log(NoteZettel.fromMarkdown("---\n---\nSome content"));
       }).toThrow();
     });
+
+    it("Throws when the title is blank", () => {
+      expect(() => {
+        console.log(
+          NoteZettel.fromMarkdown('---\ntitle: \" \t\"\n---\nSome content'),
+        );
+      }).toThrow();
+    });
   });
 });
