@@ -2,28 +2,33 @@
 
 ## TODO
 
-- [ ] Define the main entities.
-  - [ ] Zettelkasten
+- [ ] Main entities.
+  - [ ] Zettelkasten (In progress)
   - [ ] Zettel
     - [ ] Note
+      - [ ] Use MDX format.
+      - [ ] Parse metadata.
     - [ ] Reference
     - [ ] Attachment
+
 - [ ] Make the CLI skeleton
   - [ ] Note
-    - [x] new
-    - [ ] titles
+    - [x] `new`: Create a new note.
+    - [ ] `titles`: Get a list of note paths and their titles.
   - [ ] Reference
     - New
     - View
     - Search
     - List
   - [ ] Attachments
-- [ ] Define the storage layers.
-- [ ] Feat: Create a Zettel.
-- [ ] Feat list zettels by title.
-- [ ] Feat: Extract links from a zettel.
-- [ ] Feat: Get a zettel in context (with it's backlinks)
-- [ ] Feat: Templates
+
+- [ ] Features after the basics are covered:
+  - [ ] Allow the user to create notes from templates.
+  - [ ] Generate a graph of links between notes.
+  - [ ] Refactor the library into a clean architecture:
+    - [ ] Convert `Zettelkasten` into an interface.
+    - [ ] Make the `Zettelkasten` implementations independent of storage backend.
+
 - [x] Bootstrap the development environment
   - [x] Flake skeleton.
   - [x] JS runtime (node, pnpm)
