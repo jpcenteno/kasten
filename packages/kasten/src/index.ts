@@ -1,6 +1,8 @@
 import * as fs from "fs";
 import path from "path";
 import { randomID } from "./entities/id";
+import { NoteZettel } from "./entities/note_zettel";
+import matter from "gray-matter";
 
 export class Zettelkasten {
   protected readonly directory: string;
@@ -12,7 +14,8 @@ export class Zettelkasten {
   newNote({ title, content }: { title: string; content: string }): string {
     const filename = randomID() + ".mdx";
     const fullpath = path.join(this.directory, filename);
-    fs.writeFileSync(fullpath, `${title}\n${content}`);
+    const data = matter.stringify(content, { title });
+    fs.writeFileSync(fullpath, data);
     return filename;
   }
 
@@ -31,5 +34,7 @@ export class Zettelkasten {
 // FIXME this is an horrible solution for the naive case. Delete this once the
 // NoteZettel entity is implemented.
 function getTitle(fullPath: string): string {
-  return fs.readFileSync(fullPath, "utf8").split("\n")[0];
+  const md = fs.readFileSync(fullPath, "utf8");
+  const note = NoteZettel.fromMarkdown(md);
+  return note.title;
 }
