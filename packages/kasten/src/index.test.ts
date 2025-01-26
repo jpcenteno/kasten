@@ -2,7 +2,7 @@ import { Zettelkasten } from "./index";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { randomID } from "./entities/id";
+import { ID, randomID } from "./entities/id";
 
 const params = { title: "Some title", content: "Some content" };
 
@@ -64,6 +64,55 @@ describe("Zettelkasten", () => {
       const fileName = randomID() + ".mdx";
       const result = zk.getFullPath(fileName);
       expect(result).toStrictEqual(dir + "/" + fileName);
+    });
+  });
+
+  describe("listNotes", () => {
+    it("Returns [] when the directory is empty", () => {
+      expect(zk.listNotes()).toHaveLength(0);
+    });
+
+    it("Should have the same lenght as the number of notes in the directory", () => {
+      // Arrange:
+      zk.newNote({ title: "Title 1", content: "content 1" });
+      zk.newNote({ title: "Title 2", content: "content 2" });
+      zk.newNote({ title: "Title 3", content: "content 3" });
+
+      // Act:
+      const notes = zk.listNotes();
+
+      // Assert:
+      expect(notes).toHaveLength(3);
+    });
+
+    it("Should list the titles of each note in the directory", () => {
+      // Arrange:
+      zk.newNote({ title: "Title 1", content: "content 1" });
+      zk.newNote({ title: "Title 2", content: "content 2" });
+      zk.newNote({ title: "Title 3", content: "content 3" });
+
+      // Act:
+      const notes = zk.listNotes();
+
+      // Assert:
+      const titles = new Set(notes.map((note) => note.title));
+      expect(titles).toContain("Title 1");
+      expect(titles).toContain("Title 2");
+      expect(titles).toContain("Title 3");
+    });
+
+    it("Should list the IDs of each note in the directory", () => {
+      // Arrange:
+      const ids: Set<string> = new Set();
+      ids.add(zk.newNote({ title: "Title 1", content: "content 1" }));
+      ids.add(zk.newNote({ title: "Title 2", content: "content 2" }));
+      ids.add(zk.newNote({ title: "Title 3", content: "content 3" }));
+
+      // Act:
+      const notes = zk.listNotes();
+
+      // Assert:
+      expect(new Set(notes.map((note) => note.id))).toEqual(ids);
     });
   });
 
