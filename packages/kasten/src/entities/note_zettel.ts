@@ -1,13 +1,12 @@
 import matter from "gray-matter";
 import { z } from "zod";
 
-type ZettelTitle = string & { readonly __brand: unique symbol };
-
 const ZettelTitle = z
   .string()
   .trim()
   .min(1, "Must be non-blank")
-  .transform((x) => x as ZettelTitle);
+  .brand<"ZettelTitle">();
+type ZettelTitle = z.infer<typeof ZettelTitle>;
 
 const FrontmatterSchema = z.object({
   title: ZettelTitle,
