@@ -1,6 +1,9 @@
 import matter from "gray-matter";
 import { z } from "zod";
 
+const NoteZettelRawContent = z.string().brand<"NoteZettelContent">();
+type NoteZettelRawContent = z.infer<typeof NoteZettelRawContent>;
+
 const ZettelTitle = z
   .string()
   .trim()
@@ -13,17 +16,21 @@ const FrontmatterSchema = z.object({
 });
 
 export class NoteZettel {
-  readonly content: string;
+  readonly content: NoteZettelRawContent;
   readonly title: ZettelTitle;
 
-  private constructor(props: { content: string; title: ZettelTitle }) {
+  private constructor(props: {
+    content: NoteZettelRawContent;
+    title: ZettelTitle;
+  }) {
     this.content = props.content;
     this.title = props.title;
   }
 
   static fromMarkdown(input: string): NoteZettel {
-    const { content, data } = matter(input);
-    const { title } = FrontmatterSchema.parse(data);
+    const grayMatterFile = matter(input);
+    const content = NoteZettelRawContent.parse(grayMatterFile.content);
+    const { title } = FrontmatterSchema.parse(grayMatterFile.data);
     return new NoteZettel({ content, title });
   }
 }
