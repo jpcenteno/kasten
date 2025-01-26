@@ -18,4 +18,18 @@ noteSubcomamnd
     console.log(zk.getFullPath(fileName));
   });
 
+noteSubcomamnd
+  .command("list")
+  .requiredOption(
+    "-d, --directory <directory>",
+    "Path to the Zettelkasten directory",
+  )
+  .action((args: { directory: string; title: string }) => {
+    const zk = new Zettelkasten(args.directory);
+    const notes = zk.listNotes();
+    notes.forEach(({ id, title }) => {
+      console.log(`${id}\t${title}`);
+    });
+  });
+
 program.parse();
