@@ -10,7 +10,7 @@
     - [ ] Attachment
 - [ ] Make the CLI skeleton
   - [ ] Note
-    - [ ] new
+    - [x] new
     - [ ] titles
   - [ ] Reference
     - New
