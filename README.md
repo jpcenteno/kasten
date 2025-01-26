@@ -14,7 +14,7 @@
 - [ ] Make the CLI skeleton
   - [ ] Note
     - [x] `new`: Create a new note.
-    - [ ] `titles`: Get a list of note paths and their titles.
+    - [x] `list`: Get a list of note paths and their titles.
   - [ ] Reference
     - New
     - View
