@@ -1,17 +1,23 @@
 import matter from "gray-matter";
 import { z } from "zod";
 
-const FrontmatterSchema = z
-  .object({
-    title: z.string().trim().min(1, "Must be non-blank"),
-  })
-  .required();
+type ZettelTitle = string & { readonly __brand: unique symbol };
+
+const ZettelTitle = z
+  .string()
+  .trim()
+  .min(1, "Must be non-blank")
+  .transform((x) => x as ZettelTitle);
+
+const FrontmatterSchema = z.object({
+  title: ZettelTitle,
+});
 
 export class NoteZettel {
   readonly content: string;
-  readonly title: string;
+  readonly title: ZettelTitle;
 
-  private constructor(props: { content: string; title: string }) {
+  private constructor(props: { content: string; title: ZettelTitle }) {
     this.content = props.content;
     this.title = props.title;
   }
