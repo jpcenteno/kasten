@@ -1,0 +1,32 @@
+name: CI - Tests and Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  # FIXME delete this job.
+  test-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v2
+
+      - uses: nixbuild/nix-quick-install-action@v29
+
+      - name: Install Node dependencies
+        run: nix develop --command -- pnpm install --frozen-lockfile
+
+      - name: Run tests
+        run: nix develop --command -- pnpm run test
+
+      - name: Run linter
+        # Bun does not yet support ESlint.
+        run: "nix develop --command -- pnpm run check:lint"
+
+      - name: Check formatting
+        run: "nix develop --command -- pnpm run check:format"
