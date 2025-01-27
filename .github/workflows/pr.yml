@@ -24,12 +24,13 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@v29
 
-      - name: Pre cache restore chores
+      - name: Grant write permissions to nix directories
         run: |
-          stat /nix
-          chmod 0755 /nix || true
-          chmod 0755 ~/.cache/nix || true
-          chmod 0755 ~root/.cache/nix || true
+          # We need to grant ourselves write privileges to the Nix directories
+          # for `actions/cache` to work:
+          chmod --recursive u+w /nix || true 
+          chmod --recursive u+w ~/.cache/nix || true 
+          chmod --recursive u+w ~root/.cache/nix || true
 
       - uses: actions/cache@v4
         with:
@@ -40,6 +41,12 @@ jobs:
             /nix
             ~/.cache/nix
             ~root/.cache/nix
+
+      - name: Revoke write permissions to nix directories
+        run: |
+          chmod --recursive u-w /nix || true 
+          chmod --recursive u-w ~/.cache/nix || true 
+          chmod --recursive u-w ~root/.cache/nix || true
 
       # - name: Restore and cache Nix store
       #   uses: nix-community/cache-nix-action@v5
