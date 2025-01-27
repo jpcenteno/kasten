@@ -6,7 +6,9 @@
   - [ ] Zettelkasten (In progress)
   - [ ] Zettel
     - [ ] Note
-      - [ ] Use MDX format.
+      - [x] Use markdown.
+        - [x] Read from markdown.
+        - [x] Serialize to markdown.
       - [ ] Parse metadata.
     - [ ] Reference
     - [ ] Attachment
