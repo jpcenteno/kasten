@@ -23,7 +23,7 @@ describe("NoteZettel", () => {
     it("Throws when the title is blank", () => {
       expect(() => {
         console.log(
-          NoteZettel.fromMarkdown('---\ntitle: \" \t\"\n---\nSome content'),
+          NoteZettel.fromMarkdown('---\ntitle: " \t"\n---\nSome content'),
         );
       }).toThrow();
     });
