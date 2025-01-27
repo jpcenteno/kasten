@@ -8,11 +8,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   # FIXME delete this job.
   test-ci:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       actions: write
     steps:
       - name: "Checkout code"
