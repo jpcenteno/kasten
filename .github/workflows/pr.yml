@@ -42,6 +42,10 @@ jobs:
           purge-created: 0
           # except the version with the `primary-key`, if it exists
           purge-primary-key: never
+          # When true, the action can do Nix-specific things.
+          # NOTE: I'm trying setting it false to see if it can speed up the
+          # process.
+          nix: false
 
       - name: Install packages from Nix development environment
         run: nix develop --command true
