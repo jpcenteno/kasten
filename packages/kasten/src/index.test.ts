@@ -15,6 +15,10 @@ describe("Zettelkasten", () => {
     zk = new Zettelkasten(dir);
   });
 
+  afterEach(() => {
+    fs.rmdirSync(dir, { recursive: true });
+  });
+
   describe("newNote", () => {
     it("Creates a new file at the directory", () => {
       // Act:
