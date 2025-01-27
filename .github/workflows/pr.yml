@@ -24,6 +24,12 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@v29
 
+      - name: Debug nix directories
+        run: |
+          find /nix
+          find ~/.cache/nix
+          find ~root/.cache/nix
+
       - uses: actions/cache@v4
         with:
           key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
