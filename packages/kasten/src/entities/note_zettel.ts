@@ -36,4 +36,8 @@ export class NoteZettel {
     const { title } = FrontmatterSchema.parse(grayMatterFile.data);
     return new NoteZettel({ content, title });
   }
+
+  stringify(): string {
+    return matter.stringify(this.content, { title: this.title });
+  }
 }

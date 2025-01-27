@@ -40,4 +40,17 @@ describe("NoteZettel", () => {
       expect(note.content).toStrictEqual("Some content");
     });
   });
+
+  describe("stringify", () => {
+    it("Should produce a string that can be recovered with fromMarkdown", () => {
+      // Arrange:
+      const note = NoteZettel.fromMarkdown(markdown);
+
+      // Act:
+      const s = note.stringify();
+
+      // Assert:
+      expect(NoteZettel.fromMarkdown(s)).toEqual(note);
+    });
+  });
 });
