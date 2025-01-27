@@ -68,12 +68,6 @@ jobs:
       - name: Install packages from Nix development environment
         run: nix develop --command true
 
-      - name: Revoke write permissions to nix directories
-        run: |
-          chmod --recursive u-w /nix || true 
-          chmod --recursive u-w ~/.cache/nix || true 
-          chmod --recursive u-w ~root/.cache/nix || true
-
       - name: Install Node dependencies
         run: nix develop --command -- pnpm install --frozen-lockfile
 
