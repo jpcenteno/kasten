@@ -3,6 +3,7 @@
 ## TODO
 
 - [ ] Main entities.
+
   - [ ] Zettelkasten (In progress)
   - [ ] Zettel
     - [ ] Note
@@ -14,6 +15,7 @@
     - [ ] Attachment
 
 - [ ] Make the CLI skeleton
+
   - [ ] Note
     - [x] `new`: Create a new note.
     - [x] `list`: Get a list of note paths and their titles.
@@ -25,6 +27,7 @@
   - [ ] Attachments
 
 - [ ] Features after the basics are covered:
+
   - [ ] Allow the user to create notes from templates.
   - [ ] Generate a graph of links between notes.
   - [ ] Refactor the library into a clean architecture:
