@@ -25,10 +25,10 @@
           version = "0.1.0";
           src = ./.;
           nativeBuildInputs = [ nodejs pnpm.configHook ];
-          pnpmWorkspaces = [ "kasten-cli" ];
+          pnpmWorkspaces = [ "kasten" "kasten-cli" ];
           pnpmDeps = pnpm.fetchDeps {
             inherit (finalAttrs) pname version src pnpmWorkspaces;
-            hash = "sha256-CesQ/lc0l7+cIKJgtuQJYTilnGK0Wpr4T7eagfDyMXE=";
+            hash = "sha256-1vLl/Cnc/h/6zsvlaks5b24jgu8FhFanzosdyY9Okuo=";
           };
           buildPhase = ''
             runHook preBuild
@@ -46,7 +46,7 @@
             # shebangs.
             cat <<EOF > $out/bin/${pname}
             #! ${pkgs.bash}/bin/bash
-            ${nodejs}/bin/node $out/lib/${pname}/packages/${pname}/dist/index.js
+            ${nodejs}/bin/node ${placeholder "out"}/lib/${pname}/packages/${pname}/dist/index.js
             EOF
             chmod +x $out/bin/${pname}
           '';
