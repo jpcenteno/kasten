@@ -2,7 +2,7 @@ import { Zettelkasten } from "./index";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { ID, randomID } from "./entities/id";
+import { randomID } from "./entities/id";
 
 const params = { title: "Some title", content: "Some content" };
 
