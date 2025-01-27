@@ -1,7 +1,10 @@
 import matter from "gray-matter";
 import { z } from "zod";
 
-const NoteZettelRawContent = z.string().brand<"NoteZettelContent">();
+const NoteZettelRawContent = z
+  .string()
+  .transform((s) => s.trim())
+  .brand<"NoteZettelContent">();
 type NoteZettelRawContent = z.infer<typeof NoteZettelRawContent>;
 
 const ZettelTitle = z

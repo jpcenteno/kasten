@@ -27,5 +27,17 @@ describe("NoteZettel", () => {
         );
       }).toThrow();
     });
+
+    it("Trims the content part of the input string", () => {
+      const markdown = [
+        "---",
+        "title: Some title",
+        "---",
+        " Some content",
+        " \t",
+      ].join("\n");
+      const note = NoteZettel.fromMarkdown(markdown);
+      expect(note.content).toStrictEqual("Some content");
+    });
   });
 });
