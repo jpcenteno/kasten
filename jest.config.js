@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   preset: "ts-jest",
   testEnvironment: "node", // Use 'jsdom' if you're testing browser-like code
   testMatch: [
@@ -9,3 +9,5 @@ module.exports = {
   },
   moduleFileExtensions: ["ts", "js", "json", "node"],
 };
+
+export default config;
