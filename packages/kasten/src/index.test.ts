@@ -28,7 +28,7 @@ describe("Zettelkasten", () => {
       expect(fileExistsInDirSync(filename)).toBeTruthy();
     });
 
-    it("Creates a two files at the directory", () => {
+    it("Creates two files at the directory", () => {
       // Act:
       const filename1 = zk.newNote(params);
       const filename2 = zk.newNote(params);
