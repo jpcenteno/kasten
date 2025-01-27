@@ -18,6 +18,9 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@v29
 
+      - name: Install packages from Nix development environment
+        run: nix develop --command true
+
       - name: Install Node dependencies
         run: nix develop --command -- pnpm install --frozen-lockfile
 
