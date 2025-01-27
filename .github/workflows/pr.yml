@@ -24,17 +24,12 @@ jobs:
 
       - uses: nixbuild/nix-quick-install-action@v29
 
-      - name: Debug nix directories
+      - name: Pre cache restore chores
         run: |
-          find /nix || true
-          find ~/.cache/nix || true
-          find ~root/.cache/nix || true
-
-      - name: Grant write privileges to nix directories
-        run: |
-          chmod --recursive 0755 /nix || true 
-          chmod --recursive 0755 ~/.cache/nix || true 
-          chmod --recursive 0755 ~root/.cache/nix || true
+          stat /nix
+          chmod 0755 /nix || true
+          chmod 0755 ~/.cache/nix || true
+          chmod 0755 ~root/.cache/nix || true
 
       - uses: actions/cache@v4
         with:
