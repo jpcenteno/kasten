@@ -46,7 +46,7 @@
             # shebangs.
             cat <<EOF > $out/bin/${pname}
             #! ${pkgs.bash}/bin/bash
-            ${nodejs}/bin/node ${placeholder "out"}/lib/${pname}/packages/${pname}/dist/index.js
+            exec ${nodejs}/bin/node ${placeholder "out"}/lib/${pname}/packages/${pname}/dist/index.js "\$@"
             EOF
             chmod +x $out/bin/${pname}
           '';
