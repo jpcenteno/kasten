@@ -13,6 +13,7 @@
     "fix": "pnpm run fix:lint && pnpm run fix:format",
     "fix:format": "prettier . --write",
     "fix:lint": "eslint --fix .",
+    "oclif": "cd ./packages/kasten-cli && pnpm oclif",
     "test": "jest"
   },
   "keywords": [],
