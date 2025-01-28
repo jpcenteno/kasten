@@ -26,25 +26,27 @@ jobs:
       - name: "Checkout code"
         uses: actions/checkout@v2
 
-      - uses: nixbuild/nix-quick-install-action@v29
-
-      - name: Grant write permissions to nix directories
-        run: |
-          # We need to grant ourselves write privileges to the Nix directories
-          # for `actions/cache` to work:
-          chmod --recursive u+w /nix || true 
-          chmod --recursive u+w ~/.cache/nix || true 
-          chmod --recursive u+w ~root/.cache/nix || true
-
-      - uses: actions/cache@v4
+      - uses: cachix/install-nix-action@v27
         with:
-          key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
-          restore-keys: |
-            nix-${{ runner.os }}-
-          path: |
-            /nix
-            ~/.cache/nix
-            ~root/.cache/nix
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Grant write permissions to nix directories
+      #   run: |
+      #     # We need to grant ourselves write privileges to the Nix directories
+      #     # for `actions/cache` to work:
+      #     chmod --recursive u+w /nix || true
+      #     chmod --recursive u+w ~/.cache/nix || true
+      #     chmod --recursive u+w ~root/.cache/nix || true
+
+      # - uses: actions/cache@v4
+      #   with:
+      #     key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
+      #     restore-keys: |
+      #       nix-${{ runner.os }}-
+      #     path: |
+      #       /nix
+      #       ~/.cache/nix
+      #       ~root/.cache/nix
 
       # +----------------------------------------------------------------------+
       # + Dependency install                                                   +
@@ -60,6 +62,9 @@ jobs:
       # + Tests and checks                                                     +
       # +----------------------------------------------------------------------+
 
+      - name: Build flake package
+        run: nix build .
+
       - name: Run tests
         run: nix develop --command -- pnpm run test
 
@@ -69,6 +74,3 @@ jobs:
 
       - name: Check formatting
         run: "nix develop --command -- pnpm run check:format"
-
-      - name: Build flake package
-        run: nix build .
