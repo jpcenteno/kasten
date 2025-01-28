@@ -11,8 +11,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@oclif/core": "^4.2.5",
     "commander": "^13.1.0",
     "kasten": "workspace:*"
   },
-  "type": "module"
+  "type": "module",
+  "bin": {
+    "kasten": "./bin/run.js"
+  },
+  "oclif": {
+    "bin": "kasten",
+    "commands": "./dist/commands",
+    "dirname": "kasten",
+    "topicSeparator": " "
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
+  }
 }
