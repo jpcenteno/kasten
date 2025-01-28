@@ -9,6 +9,6 @@ export const command = new Command("new")
   .requiredOption("-t, --title <title>", "Note title")
   .action((args: { directory: string; title: string }) => {
     const zk = new Zettelkasten(args.directory);
-    const fileName = zk.newNote({ title: args.title, content: "some content" });
+    const fileName = zk.newNote({ title: args.title, content: "" });
     console.log(zk.getFullPath(fileName));
   });
