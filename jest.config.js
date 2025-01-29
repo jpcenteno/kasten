@@ -9,6 +9,11 @@ const config = {
   },
   moduleFileExtensions: ["ts", "js", "json", "node"],
   moduleNameMapper: {
+    // We need to remove `.js` suffix from the module specifiers for Jest to be
+    // able to resolve imported modules. See [1], [2].
+    //
+    // [1] https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution-for-libraries
+    // [2] https://github.com/kulshekhar/ts-jest/issues/1057
     "(.+)\\.js": "$1",
   },
 };
