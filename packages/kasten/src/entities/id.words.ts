@@ -1,4 +1,4 @@
-[
+export const words = [
   "abandon",
   "ability",
   "able",
@@ -2047,4 +2047,6 @@
   "zero",
   "zone",
   "zoo"
-]
+];
+
+export default words;
