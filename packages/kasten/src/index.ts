@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import path from "path";
-import { randomID } from "./entities/id";
-import { NoteZettel } from "./entities/note_zettel";
+import { randomID } from "./entities/id.js";
+import { NoteZettel } from "./entities/note_zettel.js";
 import matter from "gray-matter";
 
 export class Zettelkasten {

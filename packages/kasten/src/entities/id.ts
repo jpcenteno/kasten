@@ -1,5 +1,5 @@
 import { randomBytes } from "crypto";
-import * as words from "./id.words.json";
+import words from "./id.words.js";
 
 export type ID = string & { readonly __brand: unique symbol };
 

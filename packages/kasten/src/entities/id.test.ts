@@ -1,5 +1,5 @@
 import { ID, intoID, randomID } from "./id";
-import * as words from "./id.words.json";
+import words from "./id.words.js";
 
 describe("intoId", () => {
   it("Cannot be empty", () => {
