@@ -13,9 +13,8 @@ export class Zettelkasten {
 
   newNote({ title, content }: { title: string; content: string }): string {
     const filename = randomID() + ".mdx";
-    const fullpath = path.join(this.directory, filename);
     const data = matter.stringify(content, { title });
-    fs.writeFileSync(fullpath, data);
+    fs.writeFileSync(this.getFullPath(filename), data);
     return filename;
   }
 
