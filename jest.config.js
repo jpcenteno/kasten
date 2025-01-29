@@ -8,6 +8,9 @@ const config = {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
   moduleFileExtensions: ["ts", "js", "json", "node"],
+  moduleNameMapper: {
+    "(.+)\\.js": "$1",
+  },
 };
 
 export default config;
