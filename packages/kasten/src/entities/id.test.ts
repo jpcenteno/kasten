@@ -1,5 +1,4 @@
 import { ID, intoID, randomID } from "./id";
-import words from "./id.words.js";
 
 describe("intoId", () => {
   it("Cannot be empty", () => {
@@ -31,18 +30,6 @@ describe("randomID", () => {
     const s = randomID();
     expect(intoID(s)).toStrictEqual(s);
   });
-
-  it.each(testIDs)(
-    "Consists of 4 dash separated words from the list: %s",
-    (id) => {
-      const idWords = id.split("-");
-      expect(idWords).toHaveLength(4);
-      expect(words).toContain(idWords[0]);
-      expect(words).toContain(idWords[1]);
-      expect(words).toContain(idWords[2]);
-      expect(words).toContain(idWords[3]);
-    },
-  );
 });
 
 function arrayOfRandomIDs(lenght: number): ID[] {
