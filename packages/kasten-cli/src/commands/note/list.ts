@@ -1,9 +1,16 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
 
+interface OutputRecord {
+  title: string;
+  relativePath: string;
+  absolutePath: string;
+}
+
 export default class NoteList extends Command {
   static override description = "List note zettels";
   static override examples = ["<%= config.bin %> <%= command.id %> --help"];
+  static override enableJsonFlag = true;
   static override flags = {
     directory: Flags.string({
       char: "d",
@@ -14,14 +21,20 @@ export default class NoteList extends Command {
     }),
   };
 
-  public async run(): Promise<void> {
+  public async run(): Promise<OutputRecord[]> {
     const { flags } = await this.parse(NoteList);
 
     const zk = new Zettelkasten(flags.directory);
-    const notes = zk.listNotes();
+    const notes: OutputRecord[] = zk.listNotes().map((note) => ({
+      title: note.title,
+      relativePath: note.id,
+      absolutePath: zk.getFullPath(note.id),
+    }));
 
-    notes.forEach(({ id, title }) => {
-      console.log(`${id}\t${title}`);
+    notes.forEach(({ relativePath, title }) => {
+      this.log(`${relativePath}\t${title}`);
     });
+
+    return notes;
   }
 }
