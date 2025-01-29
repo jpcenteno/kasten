@@ -28,7 +28,7 @@
           pnpmWorkspaces = [ "kasten" "kasten-cli" ];
           pnpmDeps = pnpm.fetchDeps {
             inherit (finalAttrs) pname version src pnpmWorkspaces;
-            hash = "sha256-9iiTLoJ36AjN0Av3sFsmVCn1YUG5NeYvBEwKyCy1Rks=";
+            hash = "sha256-n9EGaoPgftWvCWmRlXH6KG+N+erAjbRfPzTSSmgS1sM=";
           };
           buildPhase = ''
             runHook preBuild
