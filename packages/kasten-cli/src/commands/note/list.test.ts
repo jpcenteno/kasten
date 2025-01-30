@@ -1,32 +1,19 @@
-import { spawnSync } from "child_process";
-import { mkdtemp, rm } from "fs/promises";
-import { tmpdir } from "os";
-import { join } from "path";
-import * as fs from "fs";
-
-const testNotes = [
-  {
-    relativePath: "note-1.mdx",
-    txt: "---\ntitle: Title 1\n---\nContent 1\n",
-    title: "Title 1",
-  },
-  {
-    relativePath: "note-2.mdx",
-    txt: "---\ntitle: Title 2\n---\nContent 2\n",
-    title: "Title 2",
-  },
-];
+import path from "path";
+import fs from "fs";
+import { runCommand } from "kasten-cli/src/__test__/run_command";
+import { testNotes } from "kasten-cli/src/__test__/test_data";
+import { createTempDir } from "kasten-cli/src/__test__/temp_dir";
 
 describe("`note list` subcommand", () => {
   let tempDir: string;
 
-  beforeEach(async () => {
-    tempDir = await mkdtemp(join(tmpdir(), "test-"));
+  beforeEach(() => {
+    tempDir = createTempDir();
   });
 
-  afterEach(async () => {
+  afterEach(() => {
     if (tempDir) {
-      await rm(tempDir, { recursive: true, force: true });
+      fs.rmSync(tempDir, { recursive: true, force: true });
     }
   });
 
@@ -41,7 +28,7 @@ describe("`note list` subcommand", () => {
 
     it("Given a store with some notes", () => {
       testNotes.forEach((o) => {
-        fs.writeFileSync(join(tempDir, o.relativePath), o.txt);
+        fs.writeFileSync(path.join(tempDir, o.relativePath), o.txt);
       });
 
       const result = runCommand(["note", "list", "-d", tempDir]);
@@ -64,7 +51,7 @@ describe("`note list` subcommand", () => {
 
     it("Given a store with some notes", () => {
       testNotes.forEach((o) => {
-        fs.writeFileSync(join(tempDir, o.relativePath), o.txt);
+        fs.writeFileSync(path.join(tempDir, o.relativePath), o.txt);
       });
 
       const result = runCommand(["note", "list", "--json", "-d", tempDir]);
@@ -77,7 +64,7 @@ describe("`note list` subcommand", () => {
         .map((testNote) => ({
           title: testNote.title,
           relativePath: testNote.relativePath,
-          absolutePath: join(tempDir, testNote.relativePath),
+          absolutePath: path.join(tempDir, testNote.relativePath),
         }))
         .forEach((expectedObject) => {
           expect(parsed).toContainEqual(expectedObject);
@@ -85,22 +72,3 @@ describe("`note list` subcommand", () => {
     });
   });
 });
-
-interface CommandResult {
-  exitCode: number | null;
-  stdout: string;
-  stderr: string;
-}
-
-function runCommand(args: string[] = []): CommandResult {
-  const result = spawnSync("./bin/run.js", args, {
-    shell: true,
-    encoding: "utf-8",
-    cwd: "./packages/kasten-cli",
-  });
-  return {
-    exitCode: result.status,
-    stdout: result.stdout || "",
-    stderr: result.stderr || "",
-  };
-}
