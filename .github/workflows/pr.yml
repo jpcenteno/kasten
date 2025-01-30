@@ -30,24 +30,6 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Grant write permissions to nix directories
-      #   run: |
-      #     # We need to grant ourselves write privileges to the Nix directories
-      #     # for `actions/cache` to work:
-      #     chmod --recursive u+w /nix || true
-      #     chmod --recursive u+w ~/.cache/nix || true
-      #     chmod --recursive u+w ~root/.cache/nix || true
-
-      # - uses: actions/cache@v4
-      #   with:
-      #     key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix') }}
-      #     restore-keys: |
-      #       nix-${{ runner.os }}-
-      #     path: |
-      #       /nix
-      #       ~/.cache/nix
-      #       ~root/.cache/nix
-
       # +----------------------------------------------------------------------+
       # + Dependency install                                                   +
       # +----------------------------------------------------------------------+
