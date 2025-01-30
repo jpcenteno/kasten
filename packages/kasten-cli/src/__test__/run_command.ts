@@ -8,7 +8,7 @@ export interface CommandResult {
 
 export function runCommand(args: string[] = []): CommandResult {
   const result = spawnSync("./bin/run.js", args, {
-    shell: true,
+    shell: false,
     encoding: "utf-8",
     cwd: "./packages/kasten-cli",
   });
