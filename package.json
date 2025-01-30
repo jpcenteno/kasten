@@ -3,19 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "deps:install": "pnpm install --frozen-lockfile",
-    "build": "pnpm run build:lib && pnpm run build:cli",
-    "build:lib": "pnpm run --filter kasten build",
-    "build:cli": "pnpm run --filter kasten-cli build",
-    "check": "pnpm run check:lint && pnpm run check:format",
-    "check:format": "prettier . --check",
-    "check:lint": "eslint .",
     "cli": "cd ./packages/kasten-cli && ./bin/dev.js",
-    "fix": "pnpm run fix:lint && pnpm run fix:format",
-    "fix:format": "prettier . --write",
-    "fix:lint": "eslint --fix .",
-    "oclif": "cd ./packages/kasten-cli && pnpm oclif",
-    "test": "jest"
+    "oclif": "cd ./packages/kasten-cli && pnpm oclif"
   },
   "keywords": [],
   "author": "",
