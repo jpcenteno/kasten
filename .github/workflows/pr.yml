@@ -48,11 +48,11 @@ jobs:
         run: nix build .
 
       - name: Run tests
-        run: nix develop --command -- pnpm run test
+        run: make test
 
       - name: Run linter
         # Bun does not yet support ESlint.
-        run: "nix develop --command -- pnpm run check:lint"
+        run: make check.lint
 
       - name: Check formatting
-        run: "nix develop --command -- pnpm run check:format"
+        run: make check.format
