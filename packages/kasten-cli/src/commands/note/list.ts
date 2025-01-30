@@ -31,6 +31,10 @@ export default class NoteList extends Command {
       absolutePath: zk.getFullPath(note.id),
     }));
 
+    if (notes.length === 0) {
+      this.warn("Notes store is empty");
+    }
+
     notes.forEach(({ relativePath, title }) => {
       this.log(`${relativePath}\t${title}`);
     });
