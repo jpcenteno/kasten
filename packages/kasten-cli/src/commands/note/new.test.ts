@@ -1,6 +1,7 @@
 import fs from "fs";
 import { runCommand } from "kasten-cli/src/__test__/run_command";
 import { createTempDir } from "kasten-cli/src/__test__/temp_dir";
+import path from "path";
 
 describe("`note new` subcommand", () => {
   let tempDir: string;
@@ -56,10 +57,10 @@ describe("`note new` subcommand", () => {
     });
   });
 
-  // FIXME implement JSON output.
-  describe.skip("JSON output", () => {
+  describe("JSON output", () => {
     it("Returns JSON format when --json is specified", () => {
       const title = "JSON Test Note";
+
       const result = runCommand([
         "note",
         "new",
@@ -73,8 +74,21 @@ describe("`note new` subcommand", () => {
       expect(result.exitCode).toStrictEqual(0);
 
       const parsed = JSON.parse(result.stdout);
+
+      // Returns the title just in case.
       expect(parsed).toHaveProperty("title", title);
-      expect(parsed).toHaveProperty("absolutePath");
+
+      // Tells us the relative path.
+      expect(parsed).toHaveProperty("relativePath");
+
+      // The new file has MDX extension.
+      expect(parsed.relativePath).toMatch(/\.mdx$/);
+
+      // The absolute path matches <directory> + <relativePath>.
+      const expectedAbsolutePath = path.resolve(tempDir, parsed.relativePath);
+      expect(parsed).toHaveProperty("absolutePath", expectedAbsolutePath);
+
+      // And it exists.
       expect(fs.existsSync(parsed.absolutePath)).toBeTruthy();
     });
   });
