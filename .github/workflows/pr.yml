@@ -47,6 +47,9 @@ jobs:
       - name: Build flake package
         run: nix build .
 
+      - name: Build (Required to test the ClI)
+        run: make build
+
       - name: Run tests
         run: make test
 
