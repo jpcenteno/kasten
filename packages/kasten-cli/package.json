@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -rf ./dist/",
-    "cli": "node ./dist/index.js"
+    "cli": "node ./dist/index.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
