@@ -47,7 +47,7 @@ export default class NoteNew extends Command {
   }
 
   private parseTitle(userInput: string): Title {
-    let result = TitleSchema.safeParse(userInput);
+    const result = TitleSchema.safeParse(userInput);
     if (result.success) {
       return result.data;
     } else {
