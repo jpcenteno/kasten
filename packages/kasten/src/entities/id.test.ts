@@ -1,4 +1,4 @@
-import { ID, intoID, randomID } from "./id";
+import { ID, intoID, randomID } from "./id.js";
 
 describe("intoId", () => {
   it("Cannot be empty", () => {

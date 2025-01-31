@@ -14,5 +14,15 @@
   "type": "module",
   "dependencies": {
     "gray-matter": "^4.0.3"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./entities/title": {
+      "default": "./dist/entities/title.js",
+      "types": "./dist/entities/title.d.ts"
+    }
   }
 }

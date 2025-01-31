@@ -1,8 +1,8 @@
 import path from "path";
 import fs from "fs";
-import { runCommand } from "kasten-cli/src/__test__/run_command";
-import { testNotes } from "kasten-cli/src/__test__/test_data";
-import { createTempDir } from "kasten-cli/src/__test__/temp_dir";
+import { runCommand } from "kasten-cli/src/__test__/run_command.js";
+import { testNotes } from "kasten-cli/src/__test__/test_data.js";
+import { createTempDir } from "kasten-cli/src/__test__/temp_dir.js";
 
 describe("`note list` subcommand", () => {
   let tempDir: string;
