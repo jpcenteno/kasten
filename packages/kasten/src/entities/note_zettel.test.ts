@@ -1,4 +1,4 @@
-import { NoteZettel } from "./note_zettel";
+import { NoteZettel } from "./note_zettel.js";
 
 const markdown = ["---", "title: Some title", "---", "Some content"].join("\n");
 

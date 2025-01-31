@@ -1,4 +1,4 @@
-import { intoZettelId } from "./entities";
+import { intoZettelId } from "./entities.js";
 
 describe("ZettelId", () => {
   describe("intoZettelId", () => {

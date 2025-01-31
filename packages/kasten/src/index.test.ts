@@ -1,8 +1,8 @@
-import { Zettelkasten } from "./index";
+import { Zettelkasten } from "./index.js";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { randomID } from "./entities/id";
+import { randomID } from "./entities/id.js";
 
 const params = { title: "Some title", content: "Some content" };
 

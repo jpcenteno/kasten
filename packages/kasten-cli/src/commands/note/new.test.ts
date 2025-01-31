@@ -1,6 +1,6 @@
 import fs from "fs";
-import { runCommand } from "kasten-cli/src/__test__/run_command";
-import { createTempDir } from "kasten-cli/src/__test__/temp_dir";
+import { runCommand } from "kasten-cli/src/__test__/run_command.js";
+import { createTempDir } from "kasten-cli/src/__test__/temp_dir.js";
 import path from "path";
 
 describe("`note new` subcommand", () => {
