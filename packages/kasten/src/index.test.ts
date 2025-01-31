@@ -3,8 +3,10 @@ import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
 import { randomID } from "./entities/id.js";
+import { TitleSchema } from "./entities/title.js";
 
-const params = { title: "Some title", content: "Some content" };
+const title = TitleSchema.parse("Some title");
+const params = { title: title, content: "Some content" };
 
 describe("Zettelkasten", () => {
   let dir: string;
@@ -78,9 +80,9 @@ describe("Zettelkasten", () => {
 
     it("Should have the same lenght as the number of notes in the directory", () => {
       // Arrange:
-      zk.newNote({ title: "Title 1", content: "content 1" });
-      zk.newNote({ title: "Title 2", content: "content 2" });
-      zk.newNote({ title: "Title 3", content: "content 3" });
+      zk.newNote({ title: TitleSchema.parse("Title 1"), content: "content 1" });
+      zk.newNote({ title: TitleSchema.parse("Title 2"), content: "content 2" });
+      zk.newNote({ title: TitleSchema.parse("Title 3"), content: "content 3" });
 
       // Act:
       const notes = zk.listNotes();
@@ -91,9 +93,9 @@ describe("Zettelkasten", () => {
 
     it("Should list the titles of each note in the directory", () => {
       // Arrange:
-      zk.newNote({ title: "Title 1", content: "content 1" });
-      zk.newNote({ title: "Title 2", content: "content 2" });
-      zk.newNote({ title: "Title 3", content: "content 3" });
+      zk.newNote({ title: TitleSchema.parse("Title 1"), content: "content 1" });
+      zk.newNote({ title: TitleSchema.parse("Title 2"), content: "content 2" });
+      zk.newNote({ title: TitleSchema.parse("Title 3"), content: "content 3" });
 
       // Act:
       const notes = zk.listNotes();
@@ -108,9 +110,24 @@ describe("Zettelkasten", () => {
     it("Should list the IDs of each note in the directory", () => {
       // Arrange:
       const ids: Set<string> = new Set();
-      ids.add(zk.newNote({ title: "Title 1", content: "content 1" }));
-      ids.add(zk.newNote({ title: "Title 2", content: "content 2" }));
-      ids.add(zk.newNote({ title: "Title 3", content: "content 3" }));
+      ids.add(
+        zk.newNote({
+          title: TitleSchema.parse("Title 1"),
+          content: "content 1",
+        }),
+      );
+      ids.add(
+        zk.newNote({
+          title: TitleSchema.parse("Title 2"),
+          content: "content 2",
+        }),
+      );
+      ids.add(
+        zk.newNote({
+          title: TitleSchema.parse("Title 3"),
+          content: "content 3",
+        }),
+      );
 
       // Act:
       const notes = zk.listNotes();
