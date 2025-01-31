@@ -1,4 +1,10 @@
-export const testNotes = [
+export interface TestNote {
+  relativePath: string;
+  txt: string;
+  title: string;
+}
+
+export const testNotes: TestNote[] = [
   {
     relativePath: "note-1.mdx",
     txt: "---\ntitle: Title 1\n---\nContent 1\n",
