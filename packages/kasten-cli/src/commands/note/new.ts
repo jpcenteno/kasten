@@ -1,5 +1,6 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
+import { Title, TitleSchema } from "kasten/entities/title";
 
 interface Output {
   title: string;
@@ -29,10 +30,12 @@ export default class NoteNew extends Command {
 
   public async run(): Promise<Output> {
     const { flags } = await this.parse(NoteNew);
-    const { title } = flags;
+    const title = this.parseTitle(flags.title);
+
+    // Validate the title
 
     const zk = new Zettelkasten(flags.directory);
-    const filename = zk.newNote({ title: flags.title, content: "" });
+    const filename = zk.newNote({ title, content: "" });
     const absolutePath = zk.getFullPath(filename);
     this.log(absolutePath);
 
@@ -41,5 +44,14 @@ export default class NoteNew extends Command {
       relativePath: filename,
       absolutePath,
     };
+  }
+
+  private parseTitle(userInput: string): Title {
+    let result = TitleSchema.safeParse(userInput);
+    if (result.success) {
+      return result.data;
+    } else {
+      this.error(result.error.errors[0].message);
+    }
   }
 }

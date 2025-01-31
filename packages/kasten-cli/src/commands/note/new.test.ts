@@ -92,4 +92,12 @@ describe("`note new` subcommand", () => {
       expect(fs.existsSync(parsed.absolutePath)).toBeTruthy();
     });
   });
+
+  describe("Fails when the title is blank", () => {
+    const result = runCommand(["note", "new", "-d", tempDir, "-t", "\t"]);
+
+    console.log({ result });
+    expect(result.exitCode).not.toEqual(0);
+    expect(result.stderr).toContain("Error: Title cannot be blank");
+  });
 });

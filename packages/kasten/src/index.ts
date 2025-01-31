@@ -3,6 +3,7 @@ import path from "path";
 import { randomID } from "./entities/id.js";
 import { NoteZettel } from "./entities/note_zettel.js";
 import matter from "gray-matter";
+import { Title } from "./entities/title.js";
 
 export class Zettelkasten {
   protected readonly directory: string;
@@ -11,7 +12,7 @@ export class Zettelkasten {
     this.directory = directory;
   }
 
-  newNote({ title, content }: { title: string; content: string }): string {
+  newNote({ title, content }: { title: Title; content: string }): string {
     const filename = randomID() + ".mdx";
     const data = matter.stringify(content, { title });
     fs.writeFileSync(this.getFullPath(filename), data);
