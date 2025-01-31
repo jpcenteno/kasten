@@ -1,5 +1,6 @@
 import matter from "gray-matter";
 import { z } from "zod";
+import { Title, TitleSchema } from "./title.js";
 
 const NoteZettelRawContent = z
   .string()
@@ -7,25 +8,15 @@ const NoteZettelRawContent = z
   .brand<"NoteZettelContent">();
 type NoteZettelRawContent = z.infer<typeof NoteZettelRawContent>;
 
-const ZettelTitle = z
-  .string()
-  .trim()
-  .min(1, "Must be non-blank")
-  .brand<"ZettelTitle">();
-type ZettelTitle = z.infer<typeof ZettelTitle>;
-
 const FrontmatterSchema = z.object({
-  title: ZettelTitle,
+  title: TitleSchema,
 });
 
 export class NoteZettel {
   readonly content: NoteZettelRawContent;
-  readonly title: ZettelTitle;
+  readonly title: Title;
 
-  private constructor(props: {
-    content: NoteZettelRawContent;
-    title: ZettelTitle;
-  }) {
+  private constructor(props: { content: NoteZettelRawContent; title: Title }) {
     this.content = props.content;
     this.title = props.title;
   }
