@@ -2,7 +2,7 @@ import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
 import { Title, TitleSchema } from "kasten/entities/title";
 
-interface Output {
+export interface Output {
   title: string;
   relativePath: string;
   absolutePath: string;

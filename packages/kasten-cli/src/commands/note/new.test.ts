@@ -6,6 +6,7 @@ import path from "path";
 import os from "os";
 import { fileURLToPath } from "url";
 import { Errors as OclifErrors } from "@oclif/core";
+import { Output } from "./new.js";
 
 type CaptureResult<T> = {
   error?: Error & Partial<OclifErrors.CLIError>;
@@ -120,31 +121,25 @@ describe("When passing the --json flag", () => {
   });
 
   it("Should include the title in the JSON output", () => {
-    const output = parseCapturedStdout();
+    const output = parseCapturedStdout() as Output;
     expect(output).to.include.keys("title");
-    expect(parseCapturedStdout()["title"]).to.equal("some title");
+    expect(output.title).to.equal("some title");
   });
 
   it("Should include an absolute path to a file in the JSON output", () => {
-    const output = parseCapturedStdout();
+    const output = parseCapturedStdout() as Output;
     expect(output).to.include.keys("absolutePath");
-    expect(fs.existsSync(output["absolutePath"])).to.equal(true);
+    expect(fs.existsSync(output.absolutePath)).to.equal(true);
   });
 
   it("Should include a relative path in the JSON output", () => {
-    const output = parseCapturedStdout();
+    const output = parseCapturedStdout() as Output;
     expect(output).to.include.keys("relativePath");
-
-    const relativePath = output["relativePath"];
-    expect(relativePath).to.be.a("string");
+    expect(output.relativePath).to.be.a("string");
   });
 
   it("Should return matching absolute and relative paths", () => {
-    const { relativePath, absolutePath } = parseCapturedStdout() as {
-      relativePath: string;
-      absolutePath: string;
-    };
-
+    const { relativePath, absolutePath } = parseCapturedStdout() as Output;
     expect(path.join(dir, relativePath)).to.equal(absolutePath);
   });
 
