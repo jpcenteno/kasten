@@ -31,9 +31,12 @@ build: build.cli
 # + Tests and checks                                                           +
 # +----------------------------------------------------------------------------+
 
+.PHONY: test.lib
+test.lib:
+	cd ./packages/kasten && $(NIX_SHELL) pnpm jest
+
 .PHONY: test
-test:
-	$(NIX_SHELL) pnpm jest
+test: test.lib
 
 .PHONY: check.format
 check.format:
