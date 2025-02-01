@@ -6,7 +6,7 @@ import path from "path";
 import os from "os";
 import { fileURLToPath } from "url";
 import { Errors as OclifErrors } from "@oclif/core";
-import { testNotes } from "./../src/__test__/test_data.ts";
+import { testNotes } from "kasten-cli/src/__test__/test_data.js";
 
 type CaptureResult<T> = {
   error?: Error & Partial<OclifErrors.CLIError>;
