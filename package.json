@@ -5,7 +5,8 @@
   "scripts": {
     "cli": "cd ./packages/kasten-cli && ./bin/dev.js",
     "cli:prod": "make clean build && cd ./packages/kasten-cli && ./bin/run.js",
-    "oclif": "cd ./packages/kasten-cli && pnpm oclif"
+    "oclif": "cd ./packages/kasten-cli && pnpm oclif",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",

@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc",
-    "clean": "rm -rf ./dist/",
-    "test": "mocha"
+    "clean": "rm -rf ./dist/"
   },
   "keywords": [],
   "author": "",

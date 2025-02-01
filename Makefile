@@ -31,15 +31,9 @@ build: build.cli
 # + Tests and checks                                                           +
 # +----------------------------------------------------------------------------+
 
-.PHONY: test.lib
-test.lib:
-	$(NIX_SHELL) pnpm --filter kasten test
-
-test.cli:
-	$(NIX_SHELL) pnpm --filter kasten-cli test
-
 .PHONY: test
-test: test.lib test.cli
+test:
+	$(NIX_SHELL) pnpm test
 
 .PHONY: check.format
 check.format:
