@@ -1,6 +1,6 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
-import { DirectoryStore } from "kasten/dist/storage-backend/index.js";
+import { DirectoryStore } from "kasten/dist/store/index.js";
 
 export type NoteListOutput = OutputRecord[];
 
