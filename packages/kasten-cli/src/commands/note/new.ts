@@ -1,6 +1,6 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
-import { DirectoryStore } from "kasten/dist/store/index.js";
+import { DirectoryStore } from "kasten/store";
 import { Title, TitleSchema } from "kasten/entities/title";
 
 export interface NoteNewOutput {
