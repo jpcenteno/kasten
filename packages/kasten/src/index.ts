@@ -2,7 +2,7 @@ import { randomID } from "./entities/id.js";
 import { NoteZettel } from "./entities/note_zettel.js";
 import matter from "gray-matter";
 import { Title } from "./entities/title.js";
-import { DirectoryStore } from "./storage-backend/index.js";
+import { DirectoryStore } from "./store/index.js";
 
 export class Zettelkasten {
   protected readonly storageBackend: DirectoryStore;

@@ -4,7 +4,7 @@ import * as path from "path";
 import * as os from "os";
 import { TitleSchema } from "./entities/title.js";
 import { expect } from "chai";
-import { DirectoryStore } from "./storage-backend/index.js";
+import { DirectoryStore } from "./store/index.js";
 
 const title = TitleSchema.parse("Some title");
 const params = { title: title, content: "Some content" };
