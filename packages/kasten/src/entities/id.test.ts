@@ -1,41 +1,40 @@
+import { expect } from "chai";
 import { ID, intoID, randomID } from "./id.js";
 
 describe("intoId", () => {
-  it("Cannot be empty", () => {
-    expect(() => intoID("")).toThrow();
+  it("Should reject empty strings", () => {
+    expect(() => intoID("")).to.throw();
   });
 
-  it.each(["foo", "foo bar ", "foo.txt"])(
-    "Accepts any non-empty string",
-    (s) => {
-      expect(intoID(s)).toStrictEqual(s);
-    },
-  );
+  describe("Given non-blank strings", () => {
+    const tests = ["foo", "foo bar ", "foo.txt"];
 
-  it("Even accepts blank strings", () => {
-    expect(intoID(" ")).toStrictEqual(" ");
-    expect(intoID("\n")).toStrictEqual("\n");
-    expect(intoID("\t")).toStrictEqual("\t");
+    tests.forEach((s) => {
+      it(`Should type any non-blank string as ID: '${s}'`, () => {
+        expect(intoID(s)).to.equal(s);
+      });
+    });
+  });
+
+  describe("Given non-empty blank strings (Those are valid filenames)", () => {
+    const tests = [
+      { s: " ", display: " " },
+      { s: "\n", display: "\\n" },
+      { s: "\t", display: "\\t" },
+    ];
+
+    tests.forEach(({ s, display }) => {
+      it(`Should accept the string: ${display}`, () => {
+        expect(intoID(s)).to.equal(s);
+      });
+    });
   });
 });
 
 describe("randomID", () => {
-  const testIDs = arrayOfRandomIDs(50);
+  const testIDs = Array.from({ length: 50 }, (_) => randomID());
 
-  it("Generates a distinct ID each time", () => {
-    expect(new Set(testIDs).size).toStrictEqual(testIDs.length);
-  });
-
-  it.each(testIDs)("Returns a valid ID: %s", () => {
-    const s = randomID();
-    expect(intoID(s)).toStrictEqual(s);
+  it("Should generate a different value each time it's called", () => {
+    expect(new Set(testIDs).size).to.equal(testIDs.length);
   });
 });
-
-function arrayOfRandomIDs(lenght: number): ID[] {
-  const ids = [];
-  for (let i = 0; i < lenght; i++) {
-    ids.push(randomID());
-  }
-  return ids;
-}
