@@ -33,7 +33,7 @@ export class Zettelkasten {
         const relativePath = relativePaths[i];
         const title = getTitle(this.getFullPath(relativePath));
         result.push({ id: relativePath, title });
-      } catch (error) {
+      } catch {
         // FIXME handle the error.
       }
     }
