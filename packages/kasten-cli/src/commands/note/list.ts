@@ -1,6 +1,8 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
 
+export type NoteListOutput = OutputRecord[];
+
 interface OutputRecord {
   title: string;
   relativePath: string;
@@ -21,11 +23,11 @@ export default class NoteList extends Command {
     }),
   };
 
-  public async run(): Promise<OutputRecord[]> {
+  public async run(): Promise<NoteListOutput> {
     const { flags } = await this.parse(NoteList);
 
     const zk = new Zettelkasten(flags.directory);
-    const notes: OutputRecord[] = zk.listNotes().map((note) => ({
+    const notes: NoteListOutput = zk.listNotes().map((note) => ({
       title: note.title,
       relativePath: note.id,
       absolutePath: zk.getFullPath(note.id),
