@@ -156,6 +156,23 @@ describe("Zettelkasten", () => {
         expect(new Set(notes.map((note) => note.id))).to.deep.equal(ids);
       });
     });
+
+    describe("Given a directory with a corrupted note", () => {
+      beforeEach(async () => {
+        await writeGoodNoteAndCorruptedNote(dir);
+      });
+
+      it("Should not fail", () => {
+        expect(() => zk.listNotes()).not.to.throw();
+      });
+
+      it("Should return an array with only the uncorrupted notes", () => {
+        const result = zk.listNotes();
+        expect(result).to.have.length(1);
+        expect(result[0].title).to.equal("Some title");
+        expect(result[0].id).to.equal("good.mdx");
+      });
+    });
   });
 
   function readRawFileSync(filename: string): string {
@@ -170,4 +187,25 @@ describe("Zettelkasten", () => {
 function tmpDir(): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "zk-test-"));
   return dir;
+}
+
+/**
+ * Writes a "good" and a "corrupted" note to the directory.
+ *
+ * The "good" note should not have any issue with the parser while the
+ * "corrupted" note should trigger a parser error.
+ */
+export async function writeGoodNoteAndCorruptedNote(directory: string) {
+  const noteData = [
+    { name: "good.mdx", txt: "---\ntitle: Some title\n---\n" },
+    { name: "bad.mdx", txt: "---\n---\n" },
+  ];
+
+  const promises = noteData.map(({ name, txt }) => {
+    const absolutePath = path.resolve(directory, name);
+    return fs.promises.writeFile(absolutePath, txt);
+  });
+
+  // FIXME is it the same if I return this?
+  await Promise.all(promises);
 }
