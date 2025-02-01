@@ -4,6 +4,7 @@ import * as path from "path";
 import * as os from "os";
 import { randomID } from "./entities/id.js";
 import { TitleSchema } from "./entities/title.js";
+import { expect } from "chai";
 
 const title = TitleSchema.parse("Some title");
 const params = { title: title, content: "Some content" };
@@ -27,7 +28,7 @@ describe("Zettelkasten", () => {
       const filename = zk.newNote(params);
 
       // Assert:
-      expect(fileExistsInDirSync(filename)).toBeTruthy();
+      expect(fileExistsInDirSync(filename)).to.equal(true);
     });
 
     it("Creates two files at the directory", () => {
@@ -36,10 +37,10 @@ describe("Zettelkasten", () => {
       const filename2 = zk.newNote(params);
 
       // Assert:
-      expect(filename1).not.toEqual(filename2);
-      expect(fileExistsInDirSync(filename1)).toBeTruthy();
-      expect(fileExistsInDirSync(filename2)).toBeTruthy();
-      expect(fs.readdirSync(dir)).toHaveLength(2);
+      expect(filename1).not.to.equal(filename2);
+      expect(fileExistsInDirSync(filename1)).to.equal(true);
+      expect(fileExistsInDirSync(filename2)).to.equal(true);
+      expect(fs.readdirSync(dir)).to.have.length(2);
     });
 
     // TODO Refactor the test using an actual note parser once we have the
@@ -50,7 +51,7 @@ describe("Zettelkasten", () => {
 
       // Assert:
       const rawContents = readRawFileSync(filename);
-      expect(rawContents).toContain(params.title);
+      expect(rawContents).to.contain(params.title);
     });
 
     // TODO Refactor the test using an actual note parser once we have the
@@ -61,7 +62,7 @@ describe("Zettelkasten", () => {
 
       // Assert:
       const rawContents = readRawFileSync(filename);
-      expect(rawContents).toContain(params.content);
+      expect(rawContents).to.contain(params.content);
     });
   });
 
@@ -69,13 +70,13 @@ describe("Zettelkasten", () => {
     it("Returns the full given a Zettel ID", () => {
       const fileName = randomID() + ".mdx";
       const result = zk.getFullPath(fileName);
-      expect(result).toStrictEqual(dir + "/" + fileName);
+      expect(result).to.equal(dir + "/" + fileName);
     });
   });
 
   describe("listNotes", () => {
     it("Returns [] when the directory is empty", () => {
-      expect(zk.listNotes()).toHaveLength(0);
+      expect(zk.listNotes()).to.have.length(0);
     });
 
     it("Should have the same lenght as the number of notes in the directory", () => {
@@ -88,7 +89,7 @@ describe("Zettelkasten", () => {
       const notes = zk.listNotes();
 
       // Assert:
-      expect(notes).toHaveLength(3);
+      expect(notes).to.have.length(3);
     });
 
     it("Should list the titles of each note in the directory", () => {
@@ -102,9 +103,9 @@ describe("Zettelkasten", () => {
 
       // Assert:
       const titles = new Set(notes.map((note) => note.title));
-      expect(titles).toContain("Title 1");
-      expect(titles).toContain("Title 2");
-      expect(titles).toContain("Title 3");
+      expect(titles).to.contain("Title 1");
+      expect(titles).to.contain("Title 2");
+      expect(titles).to.contain("Title 3");
     });
 
     it("Should list the IDs of each note in the directory", () => {
@@ -133,7 +134,7 @@ describe("Zettelkasten", () => {
       const notes = zk.listNotes();
 
       // Assert:
-      expect(new Set(notes.map((note) => note.id))).toEqual(ids);
+      expect(new Set(notes.map((note) => note.id))).to.deep.equal(ids);
     });
   });
 
