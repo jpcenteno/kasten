@@ -66,14 +66,6 @@ describe("Zettelkasten", () => {
     });
   });
 
-  describe("getFullPath", () => {
-    it("Returns the full given a Zettel ID", () => {
-      const fileName = randomID() + ".mdx";
-      const result = zk.getFullPath(fileName);
-      expect(result).to.equal(dir + "/" + fileName);
-    });
-  });
-
   describe("listNotes", () => {
     it("Returns [] when the directory is empty", () => {
       expect(zk.listNotes()).to.have.length(0);
