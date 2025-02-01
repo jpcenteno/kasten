@@ -76,27 +76,12 @@ importers:
       '@oclif/test':
         specifier: ^4.1.8
         version: 4.1.8(@oclif/core@4.2.5)
-      '@types/chai':
-        specifier: ^5.0.1
-        version: 5.0.1
-      '@types/mocha':
-        specifier: ^10.0.10
-        version: 10.0.10
-      chai:
-        specifier: ^5.1.2
-        version: 5.1.2
-      mocha:
-        specifier: ^11.1.0
-        version: 11.1.0
       oclif:
         specifier: ^4.17.20
         version: 4.17.20(@types/node@22.10.10)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@22.10.10)(typescript@5.7.3)
-      tsx:
-        specifier: ^4.19.2
-        version: 4.19.2
 
 packages:
 
