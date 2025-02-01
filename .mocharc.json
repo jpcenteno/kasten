@@ -2,8 +2,5 @@
   "$schema": "https://json.schemastore.org/mocharc.json",
   "require": "tsx",
   "spec": ["packages/*/src/**/*.test.ts"],
-  "watch-files": [
-    "packages/*/src/**/*.ts",
-    "packages/*/src/**/*.js"
-  ]
+  "watch-files": ["packages/*/src/**/*.ts", "packages/*/src/**/*.js"]
 }
