@@ -23,6 +23,10 @@
     "./entities/title": {
       "default": "./dist/entities/title.js",
       "types": "./dist/entities/title.d.ts"
+    },
+    "./store": {
+      "default": "./dist/store/index.js",
+      "types": "./dist/store/index.d.ts"
     }
   }
 }
