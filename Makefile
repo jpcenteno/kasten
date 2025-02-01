@@ -32,7 +32,7 @@ build: build.cli
 # +----------------------------------------------------------------------------+
 
 .PHONY: test
-test:
+test: build.lib
 	$(NIX_SHELL) pnpm test
 
 .PHONY: check.format
