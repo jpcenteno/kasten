@@ -37,5 +37,5 @@ export async function writeGoodNoteAndCorruptedNote(directory: string) {
     return fs.promises.writeFile(absolutePath, txt);
   });
 
-  Promise.all(promises);
+  return Promise.all(promises);
 }
