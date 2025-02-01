@@ -24,10 +24,21 @@ export class Zettelkasten {
   }
 
   listNotes(): { id: string; title: string }[] {
-    return fs.readdirSync(this.directory).map((fileName) => ({
-      id: fileName,
-      title: getTitle(this.getFullPath(fileName)),
-    }));
+    // FIXME This code is horrible. Refactor `fromMarkdown` to return a
+    // type-safe result type and refactor this into some functional code.
+    const result: { id: string; title: string }[] = [];
+    const relativePaths = fs.readdirSync(this.directory);
+    for (let i = 0; i < relativePaths.length; i++) {
+      try {
+        const relativePath = relativePaths[i];
+        const title = getTitle(this.getFullPath(relativePath));
+        result.push({ id: relativePath, title });
+      } catch (error) {
+        // FIXME handle the error.
+      }
+    }
+
+    return result;
   }
 }
 
