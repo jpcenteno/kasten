@@ -1,43 +1,46 @@
+import { expect } from "chai";
 import { NoteZettel } from "./note_zettel.js";
 
 const markdown = ["---", "title: Some title", "---", "Some content"].join("\n");
 
 describe("NoteZettel", () => {
   describe("fromMarkdown", () => {
-    it("Should extract the content", () => {
-      const note = NoteZettel.fromMarkdown(markdown);
-      expect(note.content).toEqual("Some content");
+    describe("Given a well-formed note", () => {
+      it("Should extract the content", () => {
+        const note = NoteZettel.fromMarkdown(markdown);
+        expect(note.content).to.equal("Some content");
+      });
+
+      it("Should extract the title", () => {
+        const note = NoteZettel.fromMarkdown(markdown);
+        expect(note.title).to.equal("Some title");
+      });
+
+      it("Should trim the content part of the input string", () => {
+        const markdown = [
+          "---",
+          "title: Some title",
+          "---",
+          " Some content",
+          " \t",
+        ].join("\n");
+        const note = NoteZettel.fromMarkdown(markdown);
+        expect(note.content).to.equal("Some content");
+      });
     });
 
-    it("Should extract the title", () => {
-      const note = NoteZettel.fromMarkdown(markdown);
-      expect(note.title).toEqual("Some title");
-    });
+    describe("Given notes with invalid titles", () => {
+      it("Should fail when the input has no title", () => {
+        expect(() => {
+          NoteZettel.fromMarkdown("---\n---\nSome content");
+        }).to.throw();
+      });
 
-    it("Fails when the input has no title", () => {
-      expect(() => {
-        console.log(NoteZettel.fromMarkdown("---\n---\nSome content"));
-      }).toThrow();
-    });
-
-    it("Throws when the title is blank", () => {
-      expect(() => {
-        console.log(
-          NoteZettel.fromMarkdown('---\ntitle: " \t"\n---\nSome content'),
-        );
-      }).toThrow();
-    });
-
-    it("Trims the content part of the input string", () => {
-      const markdown = [
-        "---",
-        "title: Some title",
-        "---",
-        " Some content",
-        " \t",
-      ].join("\n");
-      const note = NoteZettel.fromMarkdown(markdown);
-      expect(note.content).toStrictEqual("Some content");
+      it("Throws when the title is blank", () => {
+        expect(() => {
+          NoteZettel.fromMarkdown('---\ntitle: " \t"\n---\nSome content');
+        }).to.throw();
+      });
     });
   });
 
@@ -50,7 +53,7 @@ describe("NoteZettel", () => {
       const s = note.stringify();
 
       // Assert:
-      expect(NoteZettel.fromMarkdown(s)).toEqual(note);
+      expect(NoteZettel.fromMarkdown(s)).to.deep.equal(note);
     });
   });
 });
