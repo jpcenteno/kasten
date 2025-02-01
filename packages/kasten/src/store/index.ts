@@ -1,15 +1,32 @@
 import fs from "fs";
 import path from "path";
+import { z } from "zod";
 
-// FIXME: Check that this is an absolute path.
+/**
+ * This type brands a path string with the semantic meaning of it being the path
+ * of a {@link DirectoryStore}.
+ *
+ * A `DirectoryStorePath` is absolute, normalized and branded.
+ *
+ * FIXME implement a Zod Schema that acts as a constructor that enforces the constraints mentioned above.
+ */
 export type DirectoryStorePath = string;
 
-export type AbsolutePath = string; // FIXME validate before instantiation; Brand it.
+export type DirectoryStoreZettelAbsolutePath = string & {
+  readonly __brand: unique symbol;
+};
 
+/**
+ * Contains all the metadata known by the store about a Zettel except from it's
+ * contents.
+ */
 export interface StoreObjectHeader {
   id: RelativePath;
 }
 
+/**
+ * Contains all the data known by the store about a Zettel.
+ */
 export interface StoreObject extends StoreObjectHeader {
   content: string;
 }
@@ -46,7 +63,8 @@ export class DirectoryStore {
     return { id, content };
   }
 
-  absolutePath(relativePath: RelativePath): AbsolutePath {
-    return path.resolve(this.directoryPath, relativePath);
+  absolutePath(relativePath: RelativePath): DirectoryStoreZettelAbsolutePath {
+    const resolved = path.resolve(this.directoryPath, relativePath);
+    return resolved as DirectoryStoreZettelAbsolutePath;
   }
 }
