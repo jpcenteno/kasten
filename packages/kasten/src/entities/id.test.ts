@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { ID, intoID, randomID } from "./id.js";
+import { intoID, randomID } from "./id.js";
 
 describe("intoId", () => {
   it("Should reject empty strings", () => {
@@ -32,7 +32,7 @@ describe("intoId", () => {
 });
 
 describe("randomID", () => {
-  const testIDs = Array.from({ length: 50 }, (_) => randomID());
+  const testIDs = Array.from({ length: 50 }, () => randomID());
 
   it("Should generate a different value each time it's called", () => {
     expect(new Set(testIDs).size).to.equal(testIDs.length);
