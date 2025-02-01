@@ -1,5 +1,6 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
+import { DirectoryStore } from "kasten/dist/storage-backend/index.js";
 import { Title, TitleSchema } from "kasten/entities/title";
 
 export interface NoteNewOutput {
@@ -32,11 +33,11 @@ export default class NoteNew extends Command {
     const { flags } = await this.parse(NoteNew);
     const title = this.parseTitle(flags.title);
 
-    // Validate the title
+    const directoryStore = new DirectoryStore(flags.directory);
+    const zk = new Zettelkasten(directoryStore);
 
-    const zk = new Zettelkasten(flags.directory);
     const filename = zk.newNote({ title, content: "" });
-    const absolutePath = zk.getFullPath(filename);
+    const absolutePath = directoryStore.absolutePath(filename);
     this.log(absolutePath);
 
     return {

@@ -2,9 +2,9 @@ import { Zettelkasten } from "./index.js";
 import * as fs from "fs";
 import * as path from "path";
 import * as os from "os";
-import { randomID } from "./entities/id.js";
 import { TitleSchema } from "./entities/title.js";
 import { expect } from "chai";
+import { DirectoryStore } from "./storage-backend/index.js";
 
 const title = TitleSchema.parse("Some title");
 const params = { title: title, content: "Some content" };
@@ -15,7 +15,8 @@ describe("Zettelkasten", () => {
 
   beforeEach(() => {
     dir = tmpDir();
-    zk = new Zettelkasten(dir);
+    const store = new DirectoryStore(dir);
+    zk = new Zettelkasten(store);
   });
 
   afterEach(() => {

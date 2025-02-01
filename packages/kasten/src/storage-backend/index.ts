@@ -46,7 +46,7 @@ export class DirectoryStore {
     return { id, content };
   }
 
-  private absolutePath(relativePath: RelativePath): AbsolutePath {
+  absolutePath(relativePath: RelativePath): AbsolutePath {
     return path.resolve(this.directoryPath, relativePath);
   }
 }

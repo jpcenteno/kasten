@@ -7,8 +7,8 @@ import { DirectoryStore } from "./storage-backend/index.js";
 export class Zettelkasten {
   protected readonly storageBackend: DirectoryStore;
 
-  constructor(directory: string) {
-    this.storageBackend = new DirectoryStore(directory);
+  constructor(storageBackend: DirectoryStore) {
+    this.storageBackend = storageBackend;
   }
 
   newNote({ title, content }: { title: Title; content: string }): string {

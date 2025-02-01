@@ -1,5 +1,6 @@
 import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
+import { DirectoryStore } from "kasten/dist/storage-backend/index.js";
 
 export type NoteListOutput = OutputRecord[];
 
@@ -26,11 +27,12 @@ export default class NoteList extends Command {
   public async run(): Promise<NoteListOutput> {
     const { flags } = await this.parse(NoteList);
 
-    const zk = new Zettelkasten(flags.directory);
+    const directoryStore = new DirectoryStore(flags.directory);
+    const zk = new Zettelkasten(directoryStore);
     const notes: NoteListOutput = zk.listNotes().map((note) => ({
       title: note.title,
       relativePath: note.id,
-      absolutePath: zk.getFullPath(note.id),
+      absolutePath: directoryStore.absolutePath(note.id),
     }));
 
     if (notes.length === 0) {
