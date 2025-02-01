@@ -33,7 +33,7 @@ build: build.cli
 
 .PHONY: test.lib
 test.lib:
-	cd ./packages/kasten && $(NIX_SHELL) pnpm jest
+	$(NIX_SHELL) pnpm --filter kasten test
 
 test.cli:
 	$(NIX_SHELL) pnpm --filter kasten-cli test
