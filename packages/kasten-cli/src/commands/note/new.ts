@@ -2,7 +2,7 @@ import { Command, Flags } from "@oclif/core";
 import { Zettelkasten } from "kasten";
 import { Title, TitleSchema } from "kasten/entities/title";
 
-interface Output {
+export interface NoteNewOutput {
   title: string;
   relativePath: string;
   absolutePath: string;
@@ -28,7 +28,7 @@ export default class NoteNew extends Command {
     }),
   };
 
-  public async run(): Promise<Output> {
+  public async run(): Promise<NoteNewOutput> {
     const { flags } = await this.parse(NoteNew);
     const title = this.parseTitle(flags.title);
 
