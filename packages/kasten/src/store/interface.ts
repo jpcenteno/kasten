@@ -1,5 +1,4 @@
-// FIXME move ./DirectoryStore/FileName.ts to ./../entities/ZettelFileName.ts
-import { ZettelFileName } from "./DirectoryStore/FileName.js";
+import { ZettelFileName } from "../entities/zettel.filename.js";
 
 export interface StoreObjectHeader {
   id: ZettelFileName;

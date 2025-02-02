@@ -3,10 +3,10 @@ import path from "path";
 import {
   ZettelFileName,
   ZettelFileNameSchema,
-} from "./DirectoryStore/FileName.js";
+} from "../entities/zettel.filename.js";
 import { Store, StoreObject, StoreObjectHeader } from "./interface.js";
 
-export * from "./DirectoryStore/FileName.js";
+export * from "../entities/zettel.filename.js";
 export * from "./interface.js";
 
 /**

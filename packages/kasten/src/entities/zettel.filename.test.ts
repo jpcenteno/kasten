@@ -1,6 +1,6 @@
 import path from "path";
 import { expect } from "chai";
-import { ZettelFileNameSchema } from "./FileName.js";
+import { ZettelFileNameSchema } from "./zettel.filename.js";
 
 describe("Parsing a string into a RelativePath", () => {
   describe("Given a simple filename", () => {
