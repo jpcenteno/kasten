@@ -6,7 +6,6 @@ import {
 } from "../entities/zettel.filename.js";
 import { Store, StoreObject, StoreObjectHeader } from "./interface.js";
 
-export * from "../entities/zettel.filename.js";
 export * from "./interface.js";
 
 /**

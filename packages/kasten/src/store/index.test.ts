@@ -2,11 +2,11 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { expect } from "chai";
+import { DirectoryStore } from "./index.js";
 import {
-  DirectoryStore,
   ZettelFileName,
   ZettelFileNameSchema,
-} from "./index.js";
+} from "../entities/zettel.filename.js";
 
 beforeEach(() => {});
 
