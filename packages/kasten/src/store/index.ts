@@ -4,8 +4,10 @@ import {
   ZettelFileName,
   ZettelFileNameSchema,
 } from "./DirectoryStore/FileName.js";
+import { Store, StoreObject, StoreObjectHeader } from "./interface.js";
 
 export * from "./DirectoryStore/FileName.js";
+export * from "./interface.js";
 
 /**
  * This type brands a path string with the semantic meaning of it being the path
@@ -21,22 +23,7 @@ export type DirectoryStoreZettelAbsolutePath = string & {
   readonly __brand: unique symbol;
 };
 
-/**
- * Contains all the metadata known by the store about a Zettel except from it's
- * contents.
- */
-export interface StoreObjectHeader {
-  id: ZettelFileName;
-}
-
-/**
- * Contains all the data known by the store about a Zettel.
- */
-export interface StoreObject extends StoreObjectHeader {
-  content: string;
-}
-
-export class DirectoryStore {
+export class DirectoryStore implements Store {
   readonly directoryPath: DirectoryStorePath;
 
   constructor(directoryPath: DirectoryStorePath) {
