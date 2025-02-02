@@ -1,6 +1,11 @@
 import fs from "fs";
 import path from "path";
-import { z } from "zod";
+import {
+  ZettelFileName,
+  ZettelFileNameSchema,
+} from "./DirectoryStore/FileName.js";
+
+export * from "./DirectoryStore/FileName.js";
 
 /**
  * This type brands a path string with the semantic meaning of it being the path
@@ -21,7 +26,7 @@ export type DirectoryStoreZettelAbsolutePath = string & {
  * contents.
  */
 export interface StoreObjectHeader {
-  id: RelativePath;
+  id: ZettelFileName;
 }
 
 /**
@@ -31,12 +36,6 @@ export interface StoreObject extends StoreObjectHeader {
   content: string;
 }
 
-// FIXME Make this more strict:
-//   - FIXME reject non-relative paths.
-//   - FIXME reject non-normalized paths.
-//   - FIXME reject normalized paths starting with ../
-export type RelativePath = string;
-
 export class DirectoryStore {
   readonly directoryPath: DirectoryStorePath;
 
@@ -44,26 +43,29 @@ export class DirectoryStore {
     this.directoryPath = directoryPath;
   }
 
-  writeSync(relativePath: RelativePath, data: string): void {
+  writeSync(relativePath: ZettelFileName, data: string): void {
     fs.writeFileSync(this.absolutePath(relativePath), data);
   }
 
-  existsSync(relativePath: RelativePath): boolean {
+  existsSync(relativePath: ZettelFileName): boolean {
     return fs.existsSync(this.absolutePath(relativePath));
   }
 
   listSync(): StoreObjectHeader[] {
-    return fs.readdirSync(this.directoryPath).map((relativePath) => ({
-      id: relativePath,
-    }));
+    return fs
+      .readdirSync(this.directoryPath)
+      .map((s) => ZettelFileNameSchema.parse(s))
+      .map((relativePath) => ({
+        id: relativePath,
+      }));
   }
 
-  readSync(id: RelativePath): StoreObject {
+  readSync(id: ZettelFileName): StoreObject {
     const content = fs.readFileSync(this.absolutePath(id), "utf8");
     return { id, content };
   }
 
-  absolutePath(relativePath: RelativePath): DirectoryStoreZettelAbsolutePath {
+  absolutePath(relativePath: ZettelFileName): DirectoryStoreZettelAbsolutePath {
     const resolved = path.resolve(this.directoryPath, relativePath);
     return resolved as DirectoryStoreZettelAbsolutePath;
   }

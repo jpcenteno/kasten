@@ -2,7 +2,11 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import { expect } from "chai";
-import { DirectoryStore, RelativePath } from "./index.js";
+import {
+  DirectoryStore,
+  ZettelFileName,
+  ZettelFileNameSchema,
+} from "./index.js";
 
 beforeEach(() => {});
 
@@ -20,7 +24,7 @@ describe("DirectoryStore", () => {
   });
 
   describe("After calling `.writeSync`", () => {
-    const expectedID = "some-file.txt";
+    const expectedID = ZettelFileNameSchema.parse("some-file.txt");
     const expectedContent = "Some content";
 
     beforeEach(() => {
@@ -53,12 +57,12 @@ describe("DirectoryStore", () => {
 
     describe("Given a store with some Zettels", () => {
       const numberOfTestZettels = 3;
-      let expectedIDs: RelativePath[];
+      let expectedIDs: ZettelFileName[];
 
       beforeEach(() => {
         expectedIDs = [];
         for (let i = 0; i < numberOfTestZettels; i++) {
-          const id = `id-${i}`;
+          const id = ZettelFileNameSchema.parse(`id-${i}`);
           directoryStore.writeSync(id, `Content ${i}`);
           expectedIDs.push(id);
         }
@@ -79,22 +83,25 @@ describe("DirectoryStore", () => {
     });
 
     describe("Calling .existsSync", () => {
+      const storedFileName = ZettelFileNameSchema.parse("stored-id");
+
       beforeEach(() => {
-        directoryStore.writeSync("stored-id", "some content");
+        directoryStore.writeSync(storedFileName, "some content");
       });
 
       it("Should return false given a non-stored id", () => {
-        expect(directoryStore.existsSync("non-stored-id")).to.equal(false);
+        const nonStoredFileName = ZettelFileNameSchema.parse("non-stored-id");
+        expect(directoryStore.existsSync(nonStoredFileName)).to.equal(false);
       });
 
       it("Should return true given a stored id", () => {
-        expect(directoryStore.existsSync("stored-id")).to.equal(true);
+        expect(directoryStore.existsSync(storedFileName)).to.equal(true);
       });
     });
 
     describe("Calling .readSync", () => {
       describe("When given a stored id", () => {
-        const expectedID = "some-id";
+        const expectedID = ZettelFileNameSchema.parse("some-id");
         const expectedContent = "some content";
 
         beforeEach(() => {

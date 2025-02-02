@@ -2,7 +2,11 @@ import { randomID } from "./entities/id.js";
 import { NoteZettel } from "./entities/note_zettel.js";
 import matter from "gray-matter";
 import { Title } from "./entities/title.js";
-import { DirectoryStore } from "./store/index.js";
+import {
+  DirectoryStore,
+  ZettelFileName,
+  ZettelFileNameSchema,
+} from "./store/index.js";
 
 export class Zettelkasten {
   protected readonly storageBackend: DirectoryStore;
@@ -11,15 +15,21 @@ export class Zettelkasten {
     this.storageBackend = storageBackend;
   }
 
-  newNote({ title, content }: { title: Title; content: string }): string {
-    const filename = randomID() + ".mdx";
+  newNote({
+    title,
+    content,
+  }: {
+    title: Title;
+    content: string;
+  }): ZettelFileName {
+    const filename = ZettelFileNameSchema.parse(randomID() + ".mdx");
     const data = matter.stringify(content, { title });
     this.storageBackend.writeSync(filename, data);
     return filename;
   }
 
-  listNotes(): { id: string; title: string }[] {
-    const result: { id: string; title: string }[] = [];
+  listNotes(): { id: ZettelFileName; title: string }[] {
+    const result: { id: ZettelFileName; title: string }[] = [];
 
     this.storageBackend.listSync().forEach(({ id }) => {
       // FIXME use a type safe Result type instead of a try-catch
