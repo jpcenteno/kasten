@@ -1,6 +1,9 @@
 import path from "path";
 import { expect } from "chai";
-import { ZettelFileNameSchema } from "./zettel.filename.js";
+import {
+  generateRandomZettelFileName,
+  ZettelFileNameSchema,
+} from "./zettel.filename.js";
 
 describe("Parsing a string into a RelativePath", () => {
   describe("Given a simple filename", () => {
@@ -51,5 +54,20 @@ describe("Parsing a string into a RelativePath", () => {
         expect(result.success).to.equal(false);
       });
     });
+  });
+});
+
+describe("generateRandomZettelFileName", () => {
+  it("Should generate a different value each time it's called", () => {
+    const results = Array.from({ length: 50 }, () =>
+      generateRandomZettelFileName(),
+    );
+    const distinctResults = new Set(results);
+    expect(distinctResults).to.have.length(results.length);
+  });
+
+  it("Should set the specified extension", () => {
+    const result = generateRandomZettelFileName("mdx");
+    expect(path.extname(result)).to.equal(".mdx");
   });
 });
