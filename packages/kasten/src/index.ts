@@ -1,10 +1,9 @@
-import { randomID } from "./entities/id.js";
 import { NoteZettel } from "./entities/note_zettel.js";
 import matter from "gray-matter";
 import { Title } from "./entities/title.js";
 import {
   ZettelFileName,
-  ZettelFileNameSchema,
+  generateRandomZettelFileName,
 } from "./entities/zettel.filename.js";
 import { Store } from "./store/index.js";
 
@@ -22,7 +21,7 @@ export class Zettelkasten {
     title: Title;
     content: string;
   }): ZettelFileName {
-    const filename = ZettelFileNameSchema.parse(randomID() + ".mdx");
+    const filename = generateRandomZettelFileName("mdx");
     const data = matter.stringify(content, { title });
     this.store.writeSync(filename, data);
     return filename;
